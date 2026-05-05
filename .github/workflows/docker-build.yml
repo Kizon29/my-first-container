@@ -1,21 +1,31 @@
-name: CI Pipeline - Docker Build
+name: CI Pipeline - Docker Build & Push
 
 # 1. When should this run? Every time you push code.
 on:
   push:
     branches: [ "main", "master" ]
 
-# 2. What should it do? 
 jobs:
-  build-and-test:
-    # 3. Spin up a fresh Ubuntu Linux server in the cloud
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # 4. Download your code onto that cloud server
+    # 2. Download your code
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    # 5. Run the Docker build command automatically
+    # 3. Build the container
     - name: Build Docker Image
       run: docker build -t my-cloud-app .
+
+    # 4. Use your secret keys to log in to Docker Hub
+    - name: Log in to Docker Hub
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+    # 5. Put your specific "shipping label" on the container
+    - name: Tag the Image for Docker Hub
+      run: docker tag my-cloud-app ${{ secrets.DOCKER_USERNAME }}/my-cloud-app:latest
+
+    # 6. Upload it to the global library!
+    - name: Push Image to Docker Hub
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/my-cloud-app:latest
