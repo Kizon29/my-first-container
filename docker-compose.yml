@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  # Container 1: Your Python Web App
+  web:
+    build: .
+    ports:
+      - "8080:5000"
+    depends_on:
+      - db  # Tells Docker: "Don't start the web app until the database is ready"
+
+  # Container 2: The PostgreSQL Database
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - "5432:5432"
