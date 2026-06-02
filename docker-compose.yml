@@ -5,7 +5,7 @@ services:
   web:
     build: .
     ports:
-      - "8080:5000"
+      - "5000:5000"
     depends_on:
       - db  # Tells Docker: "Don't start the web app until the database is ready"
 
