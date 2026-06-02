@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, url_for
 import psycopg2
+import os  # NEW: We need this library to read the environment variables
 
 app = Flask(__name__)
 
@@ -9,7 +10,7 @@ def get_db_connection():
         host="db",
         database="postgres",
         user="postgres",
-        password="mysecretpassword"
+        password=os.environ.get('DB_PASSWORD')  # NEW: Grabs the hidden secret!
     )
     return conn
 
@@ -81,6 +82,9 @@ def home():
         
     html += "</ul></div>"
     return html
+
+
+   
 
 # 5. NEW ACTION: The "Clear Vault" Logic
 @app.route('/clear', methods=['POST'])
