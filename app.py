@@ -55,7 +55,7 @@ def home():
     # 4. Build the HTML UI
     html = """
     <div style="font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
-        <h2>📦 Kizon's Inventory System</h2>
+        <h2>📦 Kizon's Inventory System 📦</h2>
         
         <form method="POST" action="/" style="margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-radius: 5px;">
             <input type="text" name="product_name" placeholder="Item Name" required style="padding: 8px; width: 45%;">

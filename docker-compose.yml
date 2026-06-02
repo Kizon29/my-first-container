@@ -4,7 +4,7 @@ services:
   web:
     build: .
     ports:
-      - "5000:5000"  # (Change the left number to 8080 if you preferred that!)
+      - "8080:5000"
     depends_on:
       - db
     environment:
